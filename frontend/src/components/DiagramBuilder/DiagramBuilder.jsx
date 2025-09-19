@@ -38,7 +38,7 @@ import { useParams, useSearchParams } from 'react-router-dom'
 import { useDigramStore } from '../../stores/diagramStore'
 import { useScenarioStore } from '../../stores/scenarioStore'
 import ElementPalette from './ElementPalette'
-import ValidationPanel from './ValidationPanel'
+import EnhancedValidationPanel from './EnhancedValidationPanel'
 import CustomNodes from './CustomNodes'
 import toast from 'react-hot-toast'
 
