@@ -18,6 +18,7 @@ class ScoringService:
         self.collection = db.scores
         self.diagram_service = DiagramService(db)
         self.scenario_service = ScenarioService(db)
+        self.validation_service = ThreatModelingValidationService()
 
     async def validate_diagram(self, diagram_id: str, user_id: str) -> List[ValidationResult]:
         """Real-time diagram validation"""
