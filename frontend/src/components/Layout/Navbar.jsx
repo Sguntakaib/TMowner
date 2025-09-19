@@ -48,8 +48,8 @@ const Navbar = () => {
   const navigation = [
     { name: 'Dashboard', path: '/', icon: Dashboard },
     { name: 'Scenarios', path: '/scenarios', icon: Psychology },
-    { name: 'Analytics', path: '/analytics', icon: Score },
-    { name: 'Achievements', path: '/achievements', icon: School },
+    { name: 'Analytics', path: '/analytics', icon: Analytics },
+    { name: 'Achievements', path: '/achievements', icon: EmojiEvents },
     { name: 'Learning', path: '/learning', icon: School },
   ]
 
