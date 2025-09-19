@@ -37,7 +37,7 @@ const ScenarioDetail = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const { currentScenario, fetchScenario, getScenarioProgress } = useScenarioStore()
-  const { clearDiagram } = useDigramStore()
+  const { clearDiagram } = useDiagramStore()
   const [isLoading, setIsLoading] = useState(true)
   const [progress, setProgress] = useState(null)
 
