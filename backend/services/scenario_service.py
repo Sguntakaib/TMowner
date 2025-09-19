@@ -49,6 +49,13 @@ class ScenarioService:
     async def get_scenario_by_id(self, scenario_id: str) -> Optional[ScenarioResponse]:
         """Get scenario by ID"""
         try:
+            # Try with string ID first (new format)
+            scenario = await self.collection.find_one({"_id": scenario_id})
+            if scenario:
+                return ScenarioResponse.from_dict(scenario)
+                
+            # Fallback to ObjectId for backward compatibility
+            from bson import ObjectId
             scenario = await self.collection.find_one({"_id": ObjectId(scenario_id)})
             if scenario:
                 return ScenarioResponse.from_dict(scenario)
