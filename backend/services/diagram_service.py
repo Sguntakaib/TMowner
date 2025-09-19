@@ -15,10 +15,13 @@ class DiagramService:
         """Create a new diagram"""
         diagram_dict = diagram_data.dict()
         diagram_dict["user_id"] = user_id
+        diagram_dict["created_at"] = datetime.utcnow()
+        diagram_dict["updated_at"] = datetime.utcnow()
+        diagram_dict["status"] = "draft"
+        diagram_dict["version"] = 1
         
-        diagram_in_db = DiagramInDB(**diagram_dict)
-        
-        result = await self.collection.insert_one(diagram_in_db.dict(by_alias=True))
+        # Insert without pre-creating DiagramInDB to let MongoDB generate _id
+        result = await self.collection.insert_one(diagram_dict)
         created_diagram = await self.collection.find_one({"_id": result.inserted_id})
         
         # Convert ObjectId to string before creating response
