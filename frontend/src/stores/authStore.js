@@ -3,7 +3,23 @@ import { persist } from 'zustand/middleware'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
-const API_BASE = import.meta.env.REACT_APP_BACKEND_URL || 'http://localhost:8001'
+// Dynamic backend URL configuration
+const getBackendUrl = () => {
+  // Check if we have an environment variable set
+  if (import.meta.env.REACT_APP_BACKEND_URL) {
+    return import.meta.env.REACT_APP_BACKEND_URL
+  }
+  
+  // For production, use the same host as the frontend
+  if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    return `${window.location.protocol}//${window.location.hostname}`
+  }
+  
+  // Default to localhost for development
+  return 'http://localhost:8001'
+}
+
+const API_BASE = getBackendUrl()
 
 const api = axios.create({
   baseURL: `${API_BASE}/api`,
