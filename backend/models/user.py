@@ -1,25 +1,8 @@
-from pydantic import BaseModel, EmailStr, Field, ConfigDict
+from pydantic import BaseModel, EmailStr, Field
 from typing import Optional, List, Dict, Any
 from datetime import datetime
-from bson import ObjectId
 
-__all__ = ['PyObjectId', 'ObjectId', 'UserProfile', 'UserPreferences', 'UserProgress', 'UserCreate', 'UserLogin', 'UserResponse', 'UserInDB', 'Token', 'TokenData']
-
-
-class PyObjectId(ObjectId):
-    @classmethod
-    def __get_validators__(cls):
-        yield cls.validate
-
-    @classmethod
-    def validate(cls, v):
-        if not ObjectId.is_valid(v):
-            raise ValueError("Invalid objectid")
-        return ObjectId(v)
-
-    @classmethod
-    def __get_pydantic_json_schema__(cls, field_schema):
-        field_schema.update(type="string")
+__all__ = ['UserProfile', 'UserPreferences', 'UserProgress', 'UserCreate', 'UserLogin', 'UserResponse', 'UserInDB', 'Token', 'TokenData']
 
 
 class UserProfile(BaseModel):
