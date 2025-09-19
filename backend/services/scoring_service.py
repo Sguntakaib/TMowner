@@ -198,8 +198,8 @@ class ScoringService:
         # Calculate current streak (consecutive days with activity)
         current_streak = await self._calculate_streak(user_id)
         
-        # Get badges
-        user = await self.db.users.find_one({"_id": ObjectId(user_id)})
+        # Get badges - user_id is already a string (UUID), not ObjectId
+        user = await self.db.users.find_one({"_id": user_id})
         badges_earned = user.get("progress", {}).get("badges", []) if user else []
         
         return UserStats(
