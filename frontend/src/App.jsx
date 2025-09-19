@@ -16,6 +16,8 @@ import ScoreHistory from './components/Scoring/ScoreHistory'
 import LearningPaths from './components/Learning/LearningPaths'
 import Profile from './components/Profile/Profile'
 import LoadingSpinner from './components/Common/LoadingSpinner'
+import AnalyticsDashboard from './components/Analytics/AnalyticsDashboard'
+import AchievementsBadges from './components/Gamification/AchievementsBadges'
 
 function App() {
   const { user, isLoading, checkAuth } = useAuthStore()
