@@ -1,33 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Typography, useTheme, CircularProgress } from '@mui/material'
-import { Line } from 'react-chartjs-2'
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-} from 'chart.js'
-import axios from 'axios'
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-)
+import { Box, Typography, useTheme, CircularProgress, Paper } from '@mui/material'
+// import { Line } from 'react-chartjs-2'
 
 const PerformanceTimeline = () => {
   const theme = useTheme()
   const [timelineData, setTimelineData] = useState(null)
+
+  return (
+    <Paper sx={{ p: 3 }}>
+      <Typography variant="h6" gutterBottom>
+        Performance Timeline
+      </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 200 }}>
+        <Typography variant="body2" color="textSecondary">
+          Chart component will be implemented here
+        </Typography>
+      </Box>
+    </Paper>
+  )
+}
+
+export default PerformanceTimeline
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
