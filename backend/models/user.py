@@ -63,9 +63,7 @@ class UserResponse(BaseModel):
     preferences: UserPreferences
     progress: UserProgress
 
-    model_config = {
-        "populate_by_name": True,
-    }
+    model_config = ConfigDict(populate_by_name=True)
         
     @classmethod
     def from_dict(cls, data):
