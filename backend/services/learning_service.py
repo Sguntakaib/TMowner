@@ -24,7 +24,8 @@ class LearningService:
         if not paths:
             return await self._create_default_learning_paths()
         
-        return paths
+        # Convert ObjectIds to strings
+        return convert_docs_to_list(paths)
 
     async def get_learning_path_by_id(self, path_id: str) -> Optional[Dict[str, Any]]:
         """Get learning path details"""
