@@ -44,6 +44,8 @@ app.include_router(scenarios.router, prefix="/api/scenarios", tags=["scenarios"]
 app.include_router(diagrams.router, prefix="/api/diagrams", tags=["diagrams"])
 app.include_router(scoring.router, prefix="/api/scoring", tags=["scoring"])
 app.include_router(learning.router, prefix="/api/learning", tags=["learning"])
+app.include_router(analytics.router, prefix="/api/analytics", tags=["analytics"])
+app.include_router(gamification.router, prefix="/api/gamification", tags=["gamification"])
 
 @app.get("/")
 async def root():
