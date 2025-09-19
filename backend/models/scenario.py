@@ -1,7 +1,6 @@
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from datetime import datetime
-from .user import PyObjectId, ObjectId
 
 
 class ReferenceArchitecture(BaseModel):
@@ -53,8 +52,6 @@ class ScenarioResponse(BaseModel):
     created_at: datetime
     updated_at: datetime
     published: bool
-
-    model_config = ConfigDict(populate_by_name=True)
         
     @classmethod
     def from_dict(cls, data):
@@ -64,7 +61,7 @@ class ScenarioResponse(BaseModel):
 
 
 class ScenarioInDB(BaseModel):
-    id: Optional[PyObjectId] = Field(default_factory=PyObjectId, alias="_id")
+    id: Optional[str] = Field(default=None, alias="_id")
     title: str
     description: str
     category: str
@@ -79,8 +76,6 @@ class ScenarioInDB(BaseModel):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
     published: bool = False
-
-    model_config = ConfigDict(populate_by_name=True, arbitrary_types_allowed=True)
 
 
 class ScenarioFilter(BaseModel):

@@ -1,7 +1,6 @@
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from datetime import datetime
-from .user import PyObjectId, ObjectId
 
 
 class ScoreBreakdown(BaseModel):
@@ -50,11 +49,9 @@ class ScoreResponse(BaseModel):
     validation_results: List[ValidationResult]
     feedback: Optional[FeedbackReport]
 
-    model_config = ConfigDict(populate_by_name=True)
-
 
 class ScoreInDB(BaseModel):
-    id: Optional[PyObjectId] = Field(default_factory=PyObjectId, alias="_id")
+    id: Optional[str] = Field(default=None, alias="_id")
     user_id: str
     scenario_id: str
     diagram_id: str
@@ -63,8 +60,6 @@ class ScoreInDB(BaseModel):
     submission_time: datetime = Field(default_factory=datetime.utcnow)
     validation_results: List[ValidationResult] = []
     feedback: Optional[FeedbackReport] = None
-
-    model_config = ConfigDict(populate_by_name=True, arbitrary_types_allowed=True)
 
 
 class LeaderboardEntry(BaseModel):

@@ -1,7 +1,6 @@
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from datetime import datetime
-from .user import PyObjectId, ObjectId
 
 
 class DiagramNode(BaseModel):
@@ -80,8 +79,6 @@ class DiagramResponse(BaseModel):
     created_at: datetime
     updated_at: datetime
     version: int
-
-    model_config = ConfigDict(populate_by_name=True)
         
     @classmethod
     def from_dict(cls, data):
@@ -91,7 +88,7 @@ class DiagramResponse(BaseModel):
 
 
 class DiagramInDB(BaseModel):
-    id: Optional[PyObjectId] = Field(default_factory=PyObjectId, alias="_id")
+    id: Optional[str] = Field(default=None, alias="_id")
     user_id: str
     scenario_id: Optional[str] = None
     title: str
@@ -101,8 +98,6 @@ class DiagramInDB(BaseModel):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
     version: int = 1
-
-    model_config = ConfigDict(populate_by_name=True, arbitrary_types_allowed=True)
 
 
 class CollaborationSession(BaseModel):
