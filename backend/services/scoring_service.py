@@ -90,6 +90,8 @@ class ScoringService:
         cursor = self.collection.find(query).skip(skip).limit(limit).sort("submission_time", -1)
         scores = await cursor.to_list(length=limit)
         
+        # Convert ObjectIds to strings
+        scores = convert_docs_to_list(scores)
         return [ScoreResponse(**score) for score in scores]
 
     async def get_detailed_feedback(self, score_id: str, user_id: str) -> Optional[Dict[str, Any]]:
