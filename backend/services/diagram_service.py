@@ -36,6 +36,8 @@ class DiagramService:
         cursor = self.collection.find(query).skip(skip).limit(limit).sort("updated_at", -1)
         diagrams = await cursor.to_list(length=limit)
         
+        # Convert ObjectIds to strings
+        diagrams = convert_docs_to_list(diagrams)
         return [DiagramResponse(**diagram) for diagram in diagrams]
 
     async def get_diagram_by_id(self, diagram_id: str) -> Optional[DiagramResponse]:
