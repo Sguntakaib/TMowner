@@ -69,7 +69,7 @@ class ScenarioService:
             
             if result.modified_count:
                 updated_scenario = await self.collection.find_one({"_id": ObjectId(scenario_id)})
-                return ScenarioResponse(**updated_scenario)
+                return ScenarioResponse.from_dict(updated_scenario)
         except Exception:
             pass
         return None
