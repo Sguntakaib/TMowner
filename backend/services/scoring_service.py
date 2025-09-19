@@ -10,6 +10,7 @@ from services.validation_service import ThreatModelingValidationService
 from typing import List, Optional, Dict, Any
 from datetime import datetime, timedelta
 from bson import ObjectId
+from utils.database import convert_doc_to_dict, convert_docs_to_list
 
 
 class ScoringService:
