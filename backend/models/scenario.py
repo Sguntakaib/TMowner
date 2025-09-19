@@ -54,9 +54,9 @@ class ScenarioResponse(BaseModel):
     updated_at: datetime
     published: bool
 
-    class Config:
-        populate_by_name = True
-        json_encoders = {ObjectId: str}
+    model_config = {
+        "populate_by_name": True,
+    }
         
     @classmethod
     def from_dict(cls, data):
@@ -82,10 +82,10 @@ class ScenarioInDB(BaseModel):
     updated_at: datetime = Field(default_factory=datetime.utcnow)
     published: bool = False
 
-    class Config:
-        populate_by_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    model_config = {
+        "populate_by_name": True,
+        "arbitrary_types_allowed": True,
+    }
 
 
 class ScenarioFilter(BaseModel):

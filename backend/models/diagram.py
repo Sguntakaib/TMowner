@@ -81,9 +81,9 @@ class DiagramResponse(BaseModel):
     updated_at: datetime
     version: int
 
-    class Config:
-        populate_by_name = True
-        json_encoders = {ObjectId: str}
+    model_config = {
+        "populate_by_name": True,
+    }
         
     @classmethod
     def from_dict(cls, data):
@@ -104,10 +104,10 @@ class DiagramInDB(BaseModel):
     updated_at: datetime = Field(default_factory=datetime.utcnow)
     version: int = 1
 
-    class Config:
-        populate_by_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    model_config = {
+        "populate_by_name": True,
+        "arbitrary_types_allowed": True,
+    }
 
 
 class CollaborationSession(BaseModel):

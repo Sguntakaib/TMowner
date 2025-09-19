@@ -50,9 +50,9 @@ class ScoreResponse(BaseModel):
     validation_results: List[ValidationResult]
     feedback: Optional[FeedbackReport]
 
-    class Config:
-        populate_by_name = True
-        json_encoders = {ObjectId: str}
+    model_config = {
+        "populate_by_name": True,
+    }
 
 
 class ScoreInDB(BaseModel):
@@ -66,10 +66,10 @@ class ScoreInDB(BaseModel):
     validation_results: List[ValidationResult] = []
     feedback: Optional[FeedbackReport] = None
 
-    class Config:
-        populate_by_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    model_config = {
+        "populate_by_name": True,
+        "arbitrary_types_allowed": True,
+    }
 
 
 class LeaderboardEntry(BaseModel):
