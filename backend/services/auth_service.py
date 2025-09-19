@@ -64,7 +64,7 @@ class AuthService:
         try:
             user = await self.collection.find_one({"_id": ObjectId(user_id)})
             if user:
-                return UserResponse(**user)
+                return UserResponse.from_dict(user)
         except Exception:
             pass
         return None
