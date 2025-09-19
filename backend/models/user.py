@@ -86,10 +86,10 @@ class UserInDB(BaseModel):
     preferences: UserPreferences = UserPreferences()
     progress: UserProgress = UserProgress()
 
-    class Config:
-        populate_by_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+    model_config = {
+        "populate_by_name": True,
+        "arbitrary_types_allowed": True,
+    }
 
 
 class Token(BaseModel):
