@@ -6,6 +6,7 @@ from models.score import (
 from models.diagram import DiagramResponse
 from services.diagram_service import DiagramService
 from services.scenario_service import ScenarioService
+from services.validation_service import ThreatModelingValidationService
 from typing import List, Optional, Dict, Any
 from datetime import datetime, timedelta
 from bson import ObjectId
