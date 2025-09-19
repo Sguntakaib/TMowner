@@ -46,7 +46,7 @@ export const useAuthStore = create(
           localStorage.setItem('auth-token', access_token)
           set({ user, token: access_token, isLoading: false })
           
-          toast.success('Welcome back!')
+          toast.success(`Welcome back, ${user.profile.first_name || user.email}!`)
           return { success: true }
         } catch (error) {
           set({ isLoading: false })
@@ -65,7 +65,7 @@ export const useAuthStore = create(
           localStorage.setItem('auth-token', access_token)
           set({ user, token: access_token, isLoading: false })
           
-          toast.success('Account created successfully!')
+          toast.success(`Welcome to Threat Modeling Platform, ${user.profile.first_name}!`)
           return { success: true }
         } catch (error) {
           set({ isLoading: false })
@@ -78,7 +78,7 @@ export const useAuthStore = create(
       logout: () => {
         localStorage.removeItem('auth-token')
         set({ user: null, token: null })
-        toast.success('Logged out successfully')
+        toast.success('See you next time!')
       },
 
       checkAuth: async () => {
@@ -90,29 +90,8 @@ export const useAuthStore = create(
 
         set({ isLoading: true })
         try {
-          // Mock user for now until backend is fixed
-          const mockUser = {
-            id: "test123",
-            email: "test@example.com",
-            profile: {
-              first_name: "Test",
-              last_name: "User",
-              avatar_url: null,
-              bio: null
-            },
-            role: "student",
-            progress: {
-              level: 1,
-              experience_points: 0,
-              completed_scenarios: [],
-              badges: []
-            },
-            preferences: {
-              theme: "light",
-              notifications: true
-            }
-          }
-          set({ user: mockUser, token, isLoading: false })
+          const response = await api.get('/auth/verify')
+          set({ user: response.data.user, token, isLoading: false })
         } catch (error) {
           localStorage.removeItem('auth-token')
           set({ user: null, token: null, isLoading: false })
