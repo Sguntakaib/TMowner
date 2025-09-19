@@ -73,7 +73,7 @@ class AuthService:
         """Get user by email"""
         user = await self.collection.find_one({"email": email})
         if user:
-            return UserResponse(**user)
+            return UserResponse.from_dict(user)
         return None
 
     async def update_user_profile(self, user_id: str, profile_data: dict) -> Optional[UserResponse]:
