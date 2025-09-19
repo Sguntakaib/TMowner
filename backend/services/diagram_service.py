@@ -3,6 +3,7 @@ from models.diagram import DiagramCreate, DiagramUpdate, DiagramResponse, Diagra
 from typing import List, Optional
 from datetime import datetime
 from bson import ObjectId
+from utils.database import convert_doc_to_dict, convert_docs_to_list
 
 
 class DiagramService:
