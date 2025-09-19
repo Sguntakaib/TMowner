@@ -160,8 +160,8 @@ class ScoringService:
         
         leaderboard = []
         for rank, result in enumerate(results, 1):
-            # Get user name
-            user = await self.db.users.find_one({"_id": ObjectId(result["_id"])})
+            # Get user name - user_id is already a string (UUID)
+            user = await self.db.users.find_one({"_id": result["_id"]})
             user_name = f"{user.get('profile', {}).get('first_name', '')} {user.get('profile', {}).get('last_name', '')}".strip()
             if not user_name:
                 user_name = user.get('email', 'Anonymous').split('@')[0]
