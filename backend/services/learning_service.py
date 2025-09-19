@@ -2,6 +2,7 @@ from motor.motor_asyncio import AsyncIOMotorDatabase
 from typing import List, Optional, Dict, Any
 from datetime import datetime, timedelta
 from bson import ObjectId
+from utils.database import convert_doc_to_dict, convert_docs_to_list
 
 
 class LearningService:
