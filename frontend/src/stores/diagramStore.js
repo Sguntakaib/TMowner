@@ -3,7 +3,7 @@ import { subscribeWithSelector } from 'zustand/middleware'
 import { useAuthStore } from './authStore'
 import toast from 'react-hot-toast'
 
-export const useDigramStore = create(
+export const useDiagramStore = create(
   subscribeWithSelector((set, get) => ({
     // Diagram state
     currentDiagram: null,
