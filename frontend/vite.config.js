@@ -6,7 +6,13 @@ export default defineConfig({
   server: {
     port: 3000,
     host: '0.0.0.0',
-    allowedHosts: 'all'
+    allowedHosts: [
+      'localhost',
+      '127.0.0.1',
+      '0.0.0.0',
+      '.emergentagent.com',
+      'threat-analysis-1.preview.emergentagent.com'
+    ]
   },
   build: {
     outDir: 'build'
