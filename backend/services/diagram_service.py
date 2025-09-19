@@ -45,6 +45,7 @@ class DiagramService:
         try:
             diagram = await self.collection.find_one({"_id": ObjectId(diagram_id)})
             if diagram:
+                diagram = convert_doc_to_dict(diagram)
                 return DiagramResponse(**diagram)
         except Exception:
             pass
