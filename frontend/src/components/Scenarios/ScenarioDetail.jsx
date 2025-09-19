@@ -310,7 +310,7 @@ const ScenarioDetail = () => {
 
               <Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                  <CompletionCircle fontSize="small" sx={{ mr: 1 }} />
+                  <CheckCircleOutline fontSize="small" sx={{ mr: 1 }} />
                   <Typography variant="body2">Completeness</Typography>
                   <Typography variant="body2" sx={{ ml: 'auto' }}>
                     {(currentScenario.scoring_criteria.completeness_weight * 100).toFixed(0)}%
