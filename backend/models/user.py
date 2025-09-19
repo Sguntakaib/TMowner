@@ -62,8 +62,6 @@ class UserResponse(BaseModel):
     last_login: Optional[datetime] = None
     preferences: UserPreferences
     progress: UserProgress
-
-    model_config = ConfigDict(populate_by_name=True)
         
     @classmethod
     def from_dict(cls, data):
