@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 from .user import PyObjectId, ObjectId
@@ -50,9 +50,7 @@ class ScoreResponse(BaseModel):
     validation_results: List[ValidationResult]
     feedback: Optional[FeedbackReport]
 
-    model_config = {
-        "populate_by_name": True,
-    }
+    model_config = ConfigDict(populate_by_name=True)
 
 
 class ScoreInDB(BaseModel):
@@ -66,10 +64,7 @@ class ScoreInDB(BaseModel):
     validation_results: List[ValidationResult] = []
     feedback: Optional[FeedbackReport] = None
 
-    model_config = {
-        "populate_by_name": True,
-        "arbitrary_types_allowed": True,
-    }
+    model_config = ConfigDict(populate_by_name=True, arbitrary_types_allowed=True)
 
 
 class LeaderboardEntry(BaseModel):
