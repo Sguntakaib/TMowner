@@ -11,10 +11,18 @@ export default defineConfig({
       '127.0.0.1',
       '0.0.0.0',
       '.emergentagent.com',
-      'threat-analysis-1.preview.emergentagent.com'
-    ]
+      'threat-analysis-1.preview.emergentagent.com',
+      '.preview.emergentagent.com'
+    ],
+    strictPort: false,
+    hmr: {
+      host: 'localhost'
+    }
   },
   build: {
     outDir: 'build'
+  },
+  define: {
+    'process.env': {}
   }
 })
