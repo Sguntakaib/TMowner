@@ -1,6 +1,7 @@
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional, List, Dict, Any
 from datetime import datetime
+import uuid
 
 __all__ = ['UserProfile', 'UserPreferences', 'UserProgress', 'UserCreate', 'UserLogin', 'UserResponse', 'UserInDB', 'Token', 'TokenData']
 
@@ -48,14 +49,17 @@ class UserResponse(BaseModel):
         
     @classmethod
     def from_dict(cls, data):
-        # Convert ObjectId to string
+        # Ensure _id is a string
         if "_id" in data:
             data["_id"] = str(data["_id"])
         return cls(**data)
 
+    class Config:
+        allow_population_by_field_name = True
+
 
 class UserInDB(BaseModel):
-    id: Optional[str] = Field(default=None, alias="_id")
+    id: Optional[str] = Field(default_factory=lambda: str(uuid.uuid4()), alias="_id")
     email: EmailStr
     password_hash: str
     profile: UserProfile = UserProfile()
@@ -64,6 +68,9 @@ class UserInDB(BaseModel):
     last_login: Optional[datetime] = None
     preferences: UserPreferences = UserPreferences()
     progress: UserProgress = UserProgress()
+
+    class Config:
+        allow_population_by_field_name = True
 
 
 class Token(BaseModel):
