@@ -6,17 +6,17 @@ export default defineConfig({
   server: {
     port: 3000,
     host: '0.0.0.0',
-    allowedHosts: [
-      'localhost',
-      '127.0.0.1',
-      '0.0.0.0',
-      '.emergentagent.com',
-      'threat-analysis-1.preview.emergentagent.com',
-      '.preview.emergentagent.com'
-    ],
+    allowedHosts: 'all',
     strictPort: false,
     hmr: {
-      host: 'localhost'
+      host: 'localhost',
+      clientPort: 3000
+    },
+    cors: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': '*',
+      'Access-Control-Allow-Headers': '*'
     }
   },
   build: {
