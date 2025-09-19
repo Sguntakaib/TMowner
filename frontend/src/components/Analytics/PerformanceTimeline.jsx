@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { Box, Typography, useTheme, CircularProgress, Paper } from '@mui/material'
-// import { Line } from 'react-chartjs-2'
+import React from 'react'
+import { Box, Typography, Paper } from '@mui/material'
 
 const PerformanceTimeline = () => {
-  const theme = useTheme()
-  const [timelineData, setTimelineData] = useState(null)
-
   return (
     <Paper sx={{ p: 3 }}>
       <Typography variant="h6" gutterBottom>
