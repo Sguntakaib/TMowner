@@ -18,7 +18,7 @@ class ScenarioService:
         result = await self.collection.insert_one(scenario_in_db.dict(by_alias=True))
         created_scenario = await self.collection.find_one({"_id": result.inserted_id})
         
-        return ScenarioResponse(**created_scenario)
+        return ScenarioResponse.from_dict(created_scenario)
 
     async def get_scenarios(self, filters: ScenarioFilter, skip: int = 0, limit: int = 50) -> List[ScenarioResponse]:
         """Get scenarios with filtering"""
