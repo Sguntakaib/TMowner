@@ -30,7 +30,7 @@ import {
 } from '@mui/icons-material'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useScenarioStore } from '../../stores/scenarioStore'
-import { useDigramStore } from '../../stores/diagramStore'
+import { useDiagramStore } from '../../stores/diagramStore'
 import LoadingSpinner from '../Common/LoadingSpinner'
 
 const ScenarioDetail = () => {
