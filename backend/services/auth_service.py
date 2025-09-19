@@ -55,7 +55,7 @@ class AuthService:
             {"$set": {"last_login": datetime.utcnow()}}
         )
         
-        return UserResponse(**user)
+        return UserResponse.from_dict(user)
 
     async def get_user_by_id(self, user_id: str) -> Optional[UserResponse]:
         """Get user by ID"""
