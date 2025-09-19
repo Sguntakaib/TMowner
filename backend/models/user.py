@@ -63,9 +63,9 @@ class UserResponse(BaseModel):
     preferences: UserPreferences
     progress: UserProgress
 
-    class Config:
-        populate_by_name = True
-        json_encoders = {ObjectId: str}
+    model_config = {
+        "populate_by_name": True,
+    }
         
     @classmethod
     def from_dict(cls, data):
