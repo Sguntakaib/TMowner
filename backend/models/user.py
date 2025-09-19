@@ -72,7 +72,7 @@ class UserResponse(BaseModel):
 
 
 class UserInDB(BaseModel):
-    id: Optional[PyObjectId] = Field(default_factory=PyObjectId, alias="_id")
+    id: Optional[str] = Field(default=None, alias="_id")
     email: EmailStr
     password_hash: str
     profile: UserProfile = UserProfile()
@@ -81,8 +81,6 @@ class UserInDB(BaseModel):
     last_login: Optional[datetime] = None
     preferences: UserPreferences = UserPreferences()
     progress: UserProgress = UserProgress()
-
-    model_config = ConfigDict(populate_by_name=True, arbitrary_types_allowed=True)
 
 
 class Token(BaseModel):
