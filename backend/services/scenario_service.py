@@ -51,7 +51,7 @@ class ScenarioService:
         try:
             scenario = await self.collection.find_one({"_id": ObjectId(scenario_id)})
             if scenario:
-                return ScenarioResponse(**scenario)
+                return ScenarioResponse.from_dict(scenario)
         except Exception:
             pass
         return None
