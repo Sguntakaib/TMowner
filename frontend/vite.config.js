@@ -7,6 +7,15 @@ export default defineConfig({
     port: 3000,
     host: true,
     strictPort: false,
+    allowedHosts: [
+      'localhost',
+      '127.0.0.1',
+      '10.219.0.148',
+      'threat-pulse-5.preview.emergentagent.com',
+      '.preview.emergentagent.com',
+      '.emergent.host',
+      '.emergentagent.com'
+    ],
     hmr: {
       port: 3000
     },
