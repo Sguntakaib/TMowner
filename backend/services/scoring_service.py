@@ -21,28 +21,24 @@ class ScoringService:
         self.validation_service = ThreatModelingValidationService()
 
     async def validate_diagram(self, diagram_id: str, user_id: str) -> List[ValidationResult]:
-        """Real-time diagram validation"""
+        """Real-time diagram validation using enhanced validation service"""
         diagram = await self.diagram_service.get_diagram_by_id(diagram_id)
         if not diagram or diagram.user_id != user_id:
             raise ValueError("Diagram not found or access denied")
         
-        validation_results = []
+        # Get scenario context for better validation
+        scenario_context = None
+        if diagram.scenario_id:
+            scenario = await self.scenario_service.get_scenario_by_id(diagram.scenario_id)
+            if scenario:
+                scenario_context = {
+                    "category": scenario.category,
+                    "difficulty": scenario.difficulty,
+                    "requirements": scenario.requirements.dict()
+                }
         
-        # Security validations
-        security_results = await self._validate_security(diagram)
-        validation_results.extend(security_results)
-        
-        # Architecture validations  
-        architecture_results = await self._validate_architecture(diagram)
-        validation_results.extend(architecture_results)
-        
-        # Performance validations
-        performance_results = await self._validate_performance(diagram)
-        validation_results.extend(performance_results)
-        
-        # Completeness validations
-        completeness_results = await self._validate_completeness(diagram)
-        validation_results.extend(completeness_results)
+        # Use enhanced validation service
+        validation_results = await self.validation_service.validate_comprehensive(diagram, scenario_context)
         
         return validation_results
 
