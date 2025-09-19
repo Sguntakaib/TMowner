@@ -43,7 +43,7 @@ function App() {
       <Navbar />
       <Box component="main" sx={{ flexGrow: 1, pt: 8 }}>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<EnhancedDashboard />} />
           <Route path="/scenarios" element={<ScenarioList />} />
           <Route path="/scenarios/:id" element={<ScenarioDetail />} />
           <Route path="/diagram/:diagramId?" element={<DiagramBuilder />} />
