@@ -84,10 +84,7 @@ class UserInDB(BaseModel):
     preferences: UserPreferences = UserPreferences()
     progress: UserProgress = UserProgress()
 
-    model_config = {
-        "populate_by_name": True,
-        "arbitrary_types_allowed": True,
-    }
+    model_config = ConfigDict(populate_by_name=True, arbitrary_types_allowed=True)
 
 
 class Token(BaseModel):
