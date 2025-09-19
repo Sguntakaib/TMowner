@@ -44,7 +44,7 @@ class ScenarioService:
         cursor = self.collection.find(query).skip(skip).limit(limit).sort("created_at", -1)
         scenarios = await cursor.to_list(length=limit)
         
-        return [ScenarioResponse(**scenario) for scenario in scenarios]
+        return [ScenarioResponse.from_dict(scenario) for scenario in scenarios]
 
     async def get_scenario_by_id(self, scenario_id: str) -> Optional[ScenarioResponse]:
         """Get scenario by ID"""
