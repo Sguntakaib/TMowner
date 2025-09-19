@@ -46,7 +46,8 @@ const Navbar = () => {
   const navigation = [
     { name: 'Dashboard', path: '/', icon: Dashboard },
     { name: 'Scenarios', path: '/scenarios', icon: Psychology },
-    { name: 'Scores', path: '/scores', icon: Score },
+    { name: 'Analytics', path: '/analytics', icon: Score },
+    { name: 'Achievements', path: '/achievements', icon: School },
     { name: 'Learning', path: '/learning', icon: School },
   ]
 
