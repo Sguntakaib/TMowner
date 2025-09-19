@@ -5,7 +5,8 @@ from datetime import datetime
 
 class ReferenceArchitecture(BaseModel):
     name: str
-    diagram_data: Dict[str, Any]
+    description: Optional[str] = None
+    diagram_data: Optional[Dict[str, Any]] = None
     score_weight: float = 1.0
 
 
