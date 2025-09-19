@@ -26,7 +26,7 @@ import {
   Security,
   Architecture,
   Speed,
-  CompletionCircle
+  CheckCircleOutline
 } from '@mui/icons-material'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useScenarioStore } from '../../stores/scenarioStore'
