@@ -83,8 +83,6 @@ class AuthService:
 
     async def update_user_profile(self, user_id: str, profile_data: dict) -> Optional[UserResponse]:
         """Update user profile"""
-        from bson import ObjectId
-        
         try:
             # Update user profile
             update_data = {}
@@ -95,10 +93,19 @@ class AuthService:
                     update_data[f"preferences.{key}"] = value
             
             if update_data:
-                await self.collection.update_one(
-                    {"_id": ObjectId(user_id)},
+                # Try with string UUID first
+                result = await self.collection.update_one(
+                    {"_id": user_id},
                     {"$set": update_data}
                 )
+                
+                # If no document updated, try with ObjectId
+                if result.modified_count == 0:
+                    from bson import ObjectId
+                    await self.collection.update_one(
+                        {"_id": ObjectId(user_id)},
+                        {"$set": update_data}
+                    )
             
             # Return updated user
             return await self.get_user_by_id(user_id)
