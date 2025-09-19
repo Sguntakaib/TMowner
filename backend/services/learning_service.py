@@ -31,7 +31,7 @@ class LearningService:
         """Get learning path details"""
         try:
             path = await self.learning_paths_collection.find_one({"_id": ObjectId(path_id)})
-            return path
+            return convert_doc_to_dict(path)
         except Exception:
             return None
 
