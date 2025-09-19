@@ -6,7 +6,7 @@ import os
 from motor.motor_asyncio import AsyncIOMotorClient
 from contextlib import asynccontextmanager
 
-from routers import auth, scenarios, diagrams, scoring, learning
+from routers import auth, scenarios, diagrams, scoring, learning, analytics, gamification
 from database.connection import connect_to_mongo, close_mongo_connection
 
 
