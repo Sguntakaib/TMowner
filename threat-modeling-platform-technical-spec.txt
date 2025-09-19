@@ -1,0 +1,684 @@
+THREAT MODELING PLATFORM - TECHNICAL SPECIFICATION
+=================================================
+Adapted for FastAPI (Python) + React + MongoDB Stack
+
+PROJECT OVERVIEW
+================
+Interactive SaaS learning platform for threat modeling that guides users from beginner to expert level through scenario-based design challenges, interactive diagram building, and automated design evaluation.
+
+TECHNOLOGY STACK
+================
+Frontend:
+- React 18+ with TypeScript
+- Vite for build tooling
+- React Router for navigation
+- React Flow for diagram canvas
+- React DnD for drag-and-drop
+- Material-UI (MUI) for components
+- Zustand for state management
+- Axios for API calls
+- React Query for server state
+- Socket.io-client for real-time features
+
+Backend:
+- FastAPI (Python 3.9+)
+- Pydantic for data validation
+- PyMongo/Motor for MongoDB integration
+- WebSockets for real-time communication
+- JWT for authentication
+- bcrypt for password hashing
+- CORS middleware
+- Redis for caching (optional, can use MongoDB)
+
+Database:
+- MongoDB for primary data storage
+- Collections: users, scenarios, diagrams, scores, feedback, learning_paths
+
+Infrastructure:
+- Docker for containerization
+- Docker Compose for local development
+- MongoDB Atlas or local MongoDB instance
+
+PHASE-BY-PHASE DEVELOPMENT PLAN
+===============================
+
+PHASE 0: PROJECT SETUP & FOUNDATION
+===================================
+Objective: Set up the complete project structure and basic configuration
+
+Backend Setup:
+- Initialize FastAPI project with proper folder structure
+- Configure MongoDB connection with Motor (async MongoDB driver)
+- Set up Pydantic models for data validation
+- Implement CORS, security headers, and middleware
+- Create base response models and error handling
+- Set up environment configuration management
+- Create Docker configuration files
+
+Frontend Setup:
+- Initialize React + TypeScript project with Vite
+- Configure React Router for navigation
+- Set up Material-UI theme and styling
+- Install and configure React Flow for diagramming
+- Set up Zustand stores for state management
+- Configure Axios with interceptors
+- Set up Socket.io client connection
+
+Database Schema Design:
+- Users collection: authentication, profile, progress
+- Scenarios collection: challenge definitions, requirements
+- Diagrams collection: user diagram designs, metadata
+- Scores collection: scoring history, achievements
+- Feedback collection: validation results, recommendations
+- Learning_paths collection: structured learning progression
+
+Project Structure:
+```
+/app/
+├── backend/
+│   ├── main.py
+│   ├── requirements.txt
+│   ├── models/
+│   │   ├── user.py
+│   │   ├── scenario.py
+│   │   ├── diagram.py
+│   │   └── score.py
+│   ├── routers/
+│   │   ├── auth.py
+│   │   ├── scenarios.py
+│   │   ├── diagrams.py
+│   │   └── scoring.py
+│   ├── services/
+│   │   ├── auth_service.py
+│   │   ├── scenario_service.py
+│   │   ├── validation_service.py
+│   │   └── scoring_service.py
+│   ├── database/
+│   │   ├── connection.py
+│   │   └── collections.py
+│   └── utils/
+│       ├── security.py
+│       └── validators.py
+├── frontend/
+│   ├── package.json
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── DiagramBuilder/
+│   │   │   ├── ScenarioViewer/
+│   │   │   ├── Dashboard/
+│   │   │   └── Auth/
+│   │   ├── stores/
+│   │   │   ├── authStore.ts
+│   │   │   ├── diagramStore.ts
+│   │   │   └── scenarioStore.ts
+│   │   ├── services/
+│   │   │   ├── api.ts
+│   │   │   ├── websocket.ts
+│   │   │   └── diagram.ts
+│   │   ├── types/
+│   │   │   ├── diagram.ts
+│   │   │   ├── scenario.ts
+│   │   │   └── user.ts
+│   │   └── utils/
+│   │       ├── validation.ts
+│   │       └── constants.ts
+└── docker-compose.yml
+```
+
+PHASE 1: CORE INFRASTRUCTURE
+============================
+Objective: Implement authentication, user management, and basic API structure
+
+Backend Implementation:
+1. User Authentication System:
+   - User registration with email validation
+   - JWT-based login/logout with refresh tokens
+   - Password reset functionality
+   - User profile management
+   - Role-based access control (student, instructor, admin)
+
+2. Database Layer:
+   - User model with authentication fields
+   - Database connection management
+   - CRUD operations for user management
+   - Data validation with Pydantic
+
+3. API Security:
+   - JWT token generation and validation
+   - Protected route decorators
+   - Rate limiting middleware
+   - Input sanitization
+
+Frontend Implementation:
+1. Authentication Pages:
+   - Login form with validation
+   - Registration form with confirmation
+   - Password reset flow
+   - User profile management
+
+2. Navigation & Layout:
+   - Main application layout
+   - Navigation bar with user menu
+   - Protected route components
+   - Loading states and error handling
+
+3. State Management:
+   - Auth store for user state
+   - API service configuration
+   - Token management and refresh
+
+Key Features:
+- User registration and login
+- JWT token management
+- Protected routes
+- User profile management
+- Basic dashboard layout
+
+PHASE 2: DIAGRAM BUILDER ENGINE
+===============================
+Objective: Create advanced interactive diagramming interface with real-time capabilities
+
+Backend Implementation:
+1. Diagram Management:
+   - Diagram CRUD operations
+   - Version control for diagrams
+   - Real-time collaboration support
+   - Diagram sharing and permissions
+
+2. WebSocket Integration:
+   - Real-time diagram synchronization
+   - Multi-user collaboration
+   - Live cursor tracking
+   - Change broadcasting
+
+3. Component Library:
+   - Predefined diagram elements (servers, databases, networks, etc.)
+   - Custom node types with properties
+   - Connection rules and constraints
+   - Element metadata management
+
+Frontend Implementation:
+1. React Flow Integration:
+   - Custom node components for system elements
+   - Drag-and-drop from element palette
+   - Dynamic edge creation with validation
+   - Canvas zoom, pan, and navigation
+   - Node grouping and nesting
+
+2. Element Palette:
+   - Categorized component library (compute, storage, network, security)
+   - Search and filter functionality
+   - Drag-and-drop to canvas
+   - Element property configuration
+
+3. Real-time Collaboration:
+   - WebSocket connection management
+   - Live user cursors and selections
+   - Conflict resolution for simultaneous edits
+   - Version history and undo/redo
+
+4. Diagram Properties:
+   - Node configuration panels
+   - Connection properties and protocols
+   - Trust boundary definitions
+   - Data flow annotations
+
+Key Features:
+- Interactive drag-and-drop diagram builder
+- Real-time multi-user collaboration
+- Comprehensive element library
+- Advanced canvas controls
+- Property management system
+
+PHASE 3: SCENARIO SYSTEM
+========================
+Objective: Create comprehensive scenario management with progressive difficulty
+
+Backend Implementation:
+1. Scenario Management:
+   - Scenario CRUD with rich metadata
+   - Category and tag-based organization
+   - Difficulty progression system
+   - Prerequisites and unlock conditions
+
+2. Scenario Structure:
+   - Title, description, and learning objectives
+   - Required architecture components
+   - Constraints and business requirements
+   - Reference architecture solutions
+   - Scoring criteria definition
+   - Time limits and hints system
+
+3. Content Management:
+   - Scenario versioning and publishing
+   - Content review and approval workflow
+   - Industry-specific scenario templates
+   - Bulk scenario import/export
+
+Frontend Implementation:
+1. Scenario Browser:
+   - Grid/list view with filtering
+   - Category navigation
+   - Difficulty indicators and progress
+   - Search and recommendation engine
+
+2. Scenario Detail View:
+   - Rich text description with media
+   - Requirements and constraints display
+   - Available elements showcase
+   - Success criteria explanation
+
+3. Progress Tracking:
+   - User scenario completion status
+   - Achievement badges and milestones
+   - Learning path visualization
+   - Performance analytics dashboard
+
+Key Features:
+- Hierarchical scenario organization
+- Progressive difficulty system
+- Rich scenario metadata
+- Content management workflow
+- User progress tracking
+
+PHASE 4: VALIDATION ENGINE
+==========================
+Objective: Real-time design validation against security and architecture best practices
+
+Backend Implementation:
+1. Rules Engine:
+   - Configurable validation rules
+   - Security pattern recognition
+   - Architecture compliance checking
+   - Performance and scalability validation
+
+2. Validation Categories:
+   - Security: Authentication, authorization, encryption, input validation
+   - Architecture: Separation of concerns, scalability, maintainability
+   - Compliance: Industry standards (OWASP, NIST, PCI-DSS)
+   - Performance: Load balancing, caching, database optimization
+
+3. Real-time Processing:
+   - WebSocket-based validation triggers
+   - Incremental validation on diagram changes
+   - Caching of validation results
+   - Performance optimization for complex diagrams
+
+Frontend Implementation:
+1. Validation Feedback:
+   - Real-time visual indicators on diagram elements
+   - Severity levels (error, warning, info)
+   - Contextual help and suggestions
+   - Validation summary panel
+
+2. Interactive Guidance:
+   - Hover tooltips with explanations
+   - Click-through to detailed recommendations
+   - Progressive disclosure of validation details
+   - Visual highlighting of problem areas
+
+Key Features:
+- Real-time design validation
+- Multi-category rule engine
+- Interactive feedback system
+- Performance-optimized validation
+
+PHASE 5: SCORING & FEEDBACK SYSTEM
+==================================
+Objective: Comprehensive scoring with detailed feedback and improvement suggestions
+
+Backend Implementation:
+1. Scoring Algorithm:
+   - Weighted scoring across multiple dimensions
+   - Time-based bonuses and penalties
+   - Completeness and accuracy metrics
+   - Comparative scoring against reference architectures
+
+2. Feedback Generation:
+   - Detailed analysis of design strengths/weaknesses
+   - Specific improvement recommendations
+   - Learning resource suggestions
+   - Next challenge recommendations
+
+3. Analytics & Reporting:
+   - Individual performance tracking
+   - Learning progress analytics
+   - Difficulty adjustment algorithms
+   - Performance benchmarking
+
+Frontend Implementation:
+1. Scoring Dashboard:
+   - Visual score breakdown and trends
+   - Achievement badges and certifications
+   - Leaderboard and peer comparison
+   - Personal improvement metrics
+
+2. Feedback Interface:
+   - Interactive feedback reports
+   - Visual diagram annotations
+   - Recommendation prioritization
+   - Action item tracking
+
+Key Features:
+- Multi-dimensional scoring system
+- Detailed feedback generation
+- Performance analytics
+- Learning progress tracking
+
+PHASE 6: GAMIFICATION & SOCIAL FEATURES
+=======================================
+Objective: Enhanced engagement through gamification and community features
+
+Backend Implementation:
+1. Achievement System:
+   - Badge definitions and criteria
+   - Point accumulation and levels
+   - Challenge completion tracking
+   - Milestone celebrations
+
+2. Social Features:
+   - User profiles and portfolios
+   - Diagram sharing and commenting
+   - Peer review system
+   - Community challenges
+
+3. Leaderboards:
+   - Global and category-specific rankings
+   - Time-based competitions
+   - Team challenges and collaboration
+   - Recognition and rewards
+
+Frontend Implementation:
+1. Gamification UI:
+   - Progress bars and level indicators
+   - Badge showcase and notifications
+   - Achievement celebrations
+   - Social sharing integration
+
+2. Community Features:
+   - User profile pages
+   - Diagram gallery and sharing
+   - Comment and discussion system
+   - Peer review interface
+
+Key Features:
+- Comprehensive achievement system
+- Social sharing and collaboration
+- Competitive elements
+- Community engagement tools
+
+PHASE 7: ADVANCED LEARNING FEATURES
+===================================
+Objective: Structured learning paths and advanced educational tools
+
+Backend Implementation:
+1. Learning Path Management:
+   - Curriculum design and sequencing
+   - Adaptive learning algorithms
+   - Prerequisite enforcement
+   - Progress tracking and analytics
+
+2. Assessment System:
+   - Competency-based evaluation
+   - Certification tracking
+   - Performance benchmarking
+   - Skill gap analysis
+
+3. Content Personalization:
+   - Adaptive difficulty adjustment
+   - Personalized recommendations
+   - Learning style accommodation
+   - Progress-based content unlocking
+
+Frontend Implementation:
+1. Learning Dashboard:
+   - Visual learning path progress
+   - Skill competency matrix
+   - Personalized recommendations
+   - Study plan management
+
+2. Advanced Analytics:
+   - Learning velocity tracking
+   - Competency gap visualization
+   - Performance trend analysis
+   - Goal setting and tracking
+
+Key Features:
+- Structured learning paths
+- Competency-based assessment
+- Personalized learning experience
+- Advanced progress analytics
+
+TECHNICAL IMPLEMENTATION DETAILS
+================================
+
+Database Schema (MongoDB Collections):
+
+1. Users Collection:
+```json
+{
+  "_id": "ObjectId",
+  "email": "string",
+  "password_hash": "string", 
+  "profile": {
+    "first_name": "string",
+    "last_name": "string",
+    "avatar_url": "string",
+    "bio": "string"
+  },
+  "role": "student|instructor|admin",
+  "created_at": "datetime",
+  "last_login": "datetime",
+  "preferences": {
+    "theme": "light|dark",
+    "notifications": "boolean"
+  },
+  "progress": {
+    "level": "number",
+    "experience_points": "number",
+    "completed_scenarios": ["scenario_id"],
+    "badges": ["badge_id"]
+  }
+}
+```
+
+2. Scenarios Collection:
+```json
+{
+  "_id": "ObjectId",
+  "title": "string",
+  "description": "string",
+  "category": "web|api|database|cloud|mobile",
+  "difficulty": "beginner|intermediate|expert",
+  "tags": ["string"],
+  "requirements": {
+    "business_context": "string",
+    "technical_constraints": ["string"],
+    "required_elements": ["string"]
+  },
+  "reference_architectures": [{
+    "name": "string",
+    "diagram_data": "object",
+    "score_weight": "number"
+  }],
+  "scoring_criteria": {
+    "security_weight": "number",
+    "architecture_weight": "number",
+    "performance_weight": "number",
+    "completeness_weight": "number"
+  },
+  "max_points": "number",
+  "time_limit": "number",
+  "prerequisites": ["scenario_id"],
+  "created_at": "datetime",
+  "updated_at": "datetime",
+  "published": "boolean"
+}
+```
+
+3. Diagrams Collection:
+```json
+{
+  "_id": "ObjectId",
+  "user_id": "ObjectId",
+  "scenario_id": "ObjectId",
+  "title": "string",
+  "diagram_data": {
+    "nodes": [{
+      "id": "string",
+      "type": "string",
+      "position": {"x": "number", "y": "number"},
+      "data": "object"
+    }],
+    "edges": [{
+      "id": "string", 
+      "source": "string",
+      "target": "string",
+      "type": "string",
+      "data": "object"
+    }]
+  },
+  "metadata": {
+    "trust_boundaries": ["object"],
+    "data_flows": ["object"],
+    "security_controls": ["object"]
+  },
+  "status": "draft|submitted|reviewed",
+  "created_at": "datetime",
+  "updated_at": "datetime",
+  "version": "number"
+}
+```
+
+4. Scores Collection:
+```json
+{
+  "_id": "ObjectId",
+  "user_id": "ObjectId", 
+  "scenario_id": "ObjectId",
+  "diagram_id": "ObjectId",
+  "scores": {
+    "security_score": "number",
+    "architecture_score": "number", 
+    "performance_score": "number",
+    "completeness_score": "number",
+    "total_score": "number"
+  },
+  "time_spent": "number",
+  "submission_time": "datetime",
+  "feedback": {
+    "summary": "string",
+    "strengths": ["string"],
+    "weaknesses": ["string"],
+    "recommendations": ["string"]
+  },
+  "validation_results": [{
+    "rule_id": "string",
+    "severity": "error|warning|info",
+    "message": "string",
+    "element_id": "string"
+  }]
+}
+```
+
+API Endpoints Structure:
+
+Authentication (/api/auth/):
+- POST /register - User registration
+- POST /login - User login
+- POST /logout - User logout  
+- POST /refresh - Token refresh
+- GET /profile - Get user profile
+- PUT /profile - Update user profile
+
+Scenarios (/api/scenarios/):
+- GET / - List scenarios with filtering
+- GET /{id} - Get scenario details
+- POST / - Create scenario (admin)
+- PUT /{id} - Update scenario (admin)
+- DELETE /{id} - Delete scenario (admin)
+- GET /categories - Get scenario categories
+- GET /progress - Get user progress
+
+Diagrams (/api/diagrams/):
+- GET / - List user diagrams
+- GET /{id} - Get diagram details
+- POST / - Create/save diagram
+- PUT /{id} - Update diagram
+- DELETE /{id} - Delete diagram
+- POST /{id}/submit - Submit for scoring
+- GET /{id}/collaborate - Get collaboration session
+
+Scoring (/api/scoring/):
+- POST /validate - Real-time validation
+- POST /score - Calculate final score
+- GET /history - Get scoring history
+- GET /feedback/{id} - Get detailed feedback
+- GET /leaderboard - Get leaderboard data
+
+Learning Paths (/api/learning/):
+- GET /paths - Get available learning paths
+- GET /paths/{id} - Get path details
+- POST /paths/{id}/enroll - Enroll in path
+- GET /progress - Get learning progress
+- GET /recommendations - Get personalized recommendations
+
+WebSocket Events:
+- diagram:join - Join diagram collaboration
+- diagram:leave - Leave diagram collaboration  
+- diagram:update - Broadcast diagram changes
+- diagram:cursor - Share cursor position
+- validation:update - Real-time validation results
+- user:presence - User presence updates
+
+DEVELOPMENT PRIORITIES
+=====================
+
+Immediate (Week 1-2):
+- Project setup and basic structure
+- User authentication system
+- Basic diagram canvas with React Flow
+- MongoDB integration and basic models
+
+Short-term (Week 3-4): 
+- Complete diagram builder with drag-and-drop
+- Scenario management system
+- Real-time collaboration basics
+- Basic validation engine
+
+Medium-term (Week 5-6):
+- Advanced validation rules
+- Scoring and feedback system
+- User progress tracking
+- Basic gamification features
+
+Long-term (Week 7-8):
+- Learning path system
+- Advanced analytics
+- Performance optimization
+- Polish and testing
+
+PERFORMANCE CONSIDERATIONS
+=========================
+- Implement diagram caching for large schemas
+- Use MongoDB indexing for fast queries
+- WebSocket connection pooling
+- React component memoization
+- Lazy loading for scenarios and content
+- Image optimization for diagram elements
+- API response caching with Redis
+- Database query optimization
+
+SECURITY BEST PRACTICES
+=======================
+- JWT token expiration and refresh
+- Input validation with Pydantic
+- Rate limiting on API endpoints
+- CORS configuration
+- SQL injection prevention (NoSQL injection)
+- XSS prevention in frontend
+- Secure password hashing with bcrypt
+- Environment variable management
+- API authentication middleware
+
+This technical specification provides the complete roadmap for building the threat modeling platform adapted to FastAPI + MongoDB stack. Each phase builds upon the previous one, creating a robust and scalable learning platform.
