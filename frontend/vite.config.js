@@ -5,24 +5,28 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    host: '0.0.0.0',
-    allowedHosts: 'all',
+    host: true,
     strictPort: false,
     hmr: {
-      host: 'localhost',
-      clientPort: 3000
+      port: 3000
     },
-    cors: true,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': '*',
-      'Access-Control-Allow-Headers': '*'
+    middlewareMode: false,
+    cors: {
+      origin: true,
+      credentials: true
+    },
+    proxy: {},
+    fs: {
+      strict: false
     }
+  },
+  preview: {
+    host: true,
+    port: 3000,
+    strictPort: false,
+    cors: true
   },
   build: {
     outDir: 'build'
-  },
-  define: {
-    'process.env': {}
   }
 })
