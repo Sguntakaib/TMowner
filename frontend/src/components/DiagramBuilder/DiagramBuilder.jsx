@@ -72,8 +72,9 @@ const DiagramBuilderContent = () => {
     loadDiagram,
     validateDiagram,
     submitForScoring,
-    clearDiagram
-  } = useDigramStore()
+    clearDiagram,
+    currentDiagram
+  } = useDiagramStore()
   
   const { fetchScenario, currentScenario } = useScenarioStore()
   
