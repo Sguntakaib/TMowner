@@ -38,7 +38,7 @@ class AuthService:
         
         # Return user response
         created_user = await self.collection.find_one({"_id": result.inserted_id})
-        return UserResponse(**created_user)
+        return UserResponse.from_dict(created_user)
 
     async def authenticate_user(self, login_data: UserLogin) -> Optional[UserResponse]:
         """Authenticate user and return user data if valid"""
