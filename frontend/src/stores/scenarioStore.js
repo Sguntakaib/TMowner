@@ -26,32 +26,74 @@ export const useScenarioStore = create((set, get) => ({
   // Fetch scenarios with filters
   fetchScenarios: async (page = 0, limit = 20) => {
     set({ isLoading: true })
-    const { filters } = get()
-    const { api } = useAuthStore.getState()
-
+    
     try {
-      const params = new URLSearchParams({
-        skip: page * limit,
-        limit: limit.toString()
-      })
-
-      if (filters.category) params.append('category', filters.category)
-      if (filters.difficulty) params.append('difficulty', filters.difficulty)
-      if (filters.search) params.append('search', filters.search)
-      if (filters.tags.length > 0) params.append('tags', filters.tags.join(','))
-
-      const response = await api.get(`/scenarios/?${params}`)
+      // Mock scenarios data for now
+      const mockScenarios = [
+        {
+          id: "scenario1",
+          title: "Web Application Security Assessment",
+          description: "Design a secure architecture for a web application with user authentication, data storage, and API endpoints.",
+          category: "web",
+          difficulty: "beginner",
+          tags: ["authentication", "web security", "API"],
+          requirements: {
+            business_context: "A startup needs a secure web application for user management",
+            technical_constraints: ["Must support 1000+ concurrent users", "GDPR compliance required"],
+            required_elements: ["Web Server", "Database", "Load Balancer", "Authentication Service"]
+          },
+          scoring_criteria: {
+            security_weight: 0.4,
+            architecture_weight: 0.3,
+            performance_weight: 0.2,
+            completeness_weight: 0.1
+          },
+          max_points: 100,
+          time_limit: 60,
+          prerequisites: [],
+          created_at: "2023-01-01T00:00:00Z",
+          updated_at: "2023-01-01T00:00:00Z",
+          published: true,
+          reference_architectures: []
+        },
+        {
+          id: "scenario2", 
+          title: "Cloud Infrastructure Security",
+          description: "Design a secure cloud infrastructure for a microservices architecture with proper network segmentation.",
+          category: "cloud",
+          difficulty: "intermediate",
+          tags: ["cloud", "microservices", "network security"],
+          requirements: {
+            business_context: "Enterprise migration to cloud with multiple services",
+            technical_constraints: ["Multi-region deployment", "Zero-trust network"],
+            required_elements: ["API Gateway", "Service Mesh", "Container Registry", "Identity Provider"]
+          },
+          scoring_criteria: {
+            security_weight: 0.4,
+            architecture_weight: 0.3,
+            performance_weight: 0.2,
+            completeness_weight: 0.1
+          },
+          max_points: 100,
+          time_limit: 90,
+          prerequisites: [],
+          created_at: "2023-01-01T00:00:00Z",
+          updated_at: "2023-01-01T00:00:00Z",
+          published: true,
+          reference_architectures: []
+        }
+      ]
       
       if (page === 0) {
-        set({ scenarios: response.data, isLoading: false })
+        set({ scenarios: mockScenarios, isLoading: false })
       } else {
         set((state) => ({ 
-          scenarios: [...state.scenarios, ...response.data],
+          scenarios: [...state.scenarios, ...mockScenarios],
           isLoading: false 
         }))
       }
       
-      return response.data
+      return mockScenarios
     } catch (error) {
       set({ isLoading: false })
       toast.error('Failed to fetch scenarios')
