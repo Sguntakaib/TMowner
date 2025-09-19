@@ -3,6 +3,8 @@ from typing import Optional, List, Dict, Any
 from datetime import datetime
 from bson import ObjectId
 
+__all__ = ['PyObjectId', 'ObjectId', 'UserProfile', 'UserPreferences', 'UserProgress', 'UserCreate', 'UserLogin', 'UserResponse', 'UserInDB', 'Token', 'TokenData']
+
 
 class PyObjectId(ObjectId):
     @classmethod
