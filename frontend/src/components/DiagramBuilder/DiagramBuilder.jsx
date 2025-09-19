@@ -201,7 +201,7 @@ const DiagramBuilderContent = () => {
 
         {/* Validation Panel */}
         {showValidation && (
-          <ValidationPanel />
+          <EnhancedValidationPanel diagramId={currentDiagram?.id} />
         )}
 
         {/* Main Canvas */}
