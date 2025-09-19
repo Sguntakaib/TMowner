@@ -35,7 +35,7 @@ import {
   Assessment
 } from '@mui/icons-material'
 import { useParams, useSearchParams } from 'react-router-dom'
-import { useDigramStore } from '../../stores/diagramStore'
+import { useDiagramStore } from '../../stores/diagramStore'
 import { useScenarioStore } from '../../stores/scenarioStore'
 import ElementPalette from './ElementPalette'
 import EnhancedValidationPanel from './EnhancedValidationPanel'
