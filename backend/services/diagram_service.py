@@ -21,6 +21,8 @@ class DiagramService:
         result = await self.collection.insert_one(diagram_in_db.dict(by_alias=True))
         created_diagram = await self.collection.find_one({"_id": result.inserted_id})
         
+        # Convert ObjectId to string before creating response
+        created_diagram = convert_doc_to_dict(created_diagram)
         return DiagramResponse(**created_diagram)
 
     async def get_user_diagrams(self, user_id: str, scenario_id: Optional[str] = None, 
