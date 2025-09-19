@@ -57,6 +57,12 @@ class ScenarioResponse(BaseModel):
     class Config:
         populate_by_name = True
         json_encoders = {ObjectId: str}
+        
+    @classmethod
+    def from_dict(cls, data):
+        if "_id" in data:
+            data["_id"] = str(data["_id"])
+        return cls(**data)
 
 
 class ScenarioInDB(BaseModel):
