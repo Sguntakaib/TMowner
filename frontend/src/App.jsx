@@ -51,6 +51,8 @@ function App() {
           <Route path="/diagram/:diagramId?" element={<DiagramBuilder />} />
           <Route path="/scores" element={<ScoreHistory />} />
           <Route path="/learning" element={<LearningPaths />} />
+          <Route path="/analytics" element={<AnalyticsDashboard />} />
+          <Route path="/achievements" element={<AchievementsBadges />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Navigate to="/" replace />} />
           <Route path="/register" element={<Navigate to="/" replace />} />
