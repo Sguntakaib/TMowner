@@ -59,9 +59,14 @@ class AuthService:
 
     async def get_user_by_id(self, user_id: str) -> Optional[UserResponse]:
         """Get user by ID"""
-        from bson import ObjectId
-        
         try:
+            # Try with string UUID first (new format)
+            user = await self.collection.find_one({"_id": user_id})
+            if user:
+                return UserResponse.from_dict(user)
+                
+            # Fallback to ObjectId for backward compatibility
+            from bson import ObjectId
             user = await self.collection.find_one({"_id": ObjectId(user_id)})
             if user:
                 return UserResponse.from_dict(user)
