@@ -5,12 +5,12 @@ import {
   addEdge,
   useNodesState,
   useEdgesState,
-  Controls,
-  MiniMap,
-  Background,
   useReactFlow,
   Panel
 } from '@reactflow/core'
+import { Background } from '@reactflow/background'
+import { Controls } from '@reactflow/controls'
+import { MiniMap } from '@reactflow/minimap'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 import {
