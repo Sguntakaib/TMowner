@@ -90,9 +90,29 @@ export const useAuthStore = create(
 
         set({ isLoading: true })
         try {
-          const response = await api.get('/auth/verify')
-          const { user } = response.data
-          set({ user, token, isLoading: false })
+          // Mock user for now until backend is fixed
+          const mockUser = {
+            id: "test123",
+            email: "test@example.com",
+            profile: {
+              first_name: "Test",
+              last_name: "User",
+              avatar_url: null,
+              bio: null
+            },
+            role: "student",
+            progress: {
+              level: 1,
+              experience_points: 0,
+              completed_scenarios: [],
+              badges: []
+            },
+            preferences: {
+              theme: "light",
+              notifications: true
+            }
+          }
+          set({ user: mockUser, token, isLoading: false })
         } catch (error) {
           localStorage.removeItem('auth-token')
           set({ user: null, token: null, isLoading: false })
